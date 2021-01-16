@@ -9,7 +9,7 @@ $file_err = $file['error'];
 $filesize = $file['size'];
 $caption = filter_input(INPUT_POST, 'caption', FILTER_SANITIZE_SPECIAL_CHARS);
 $upload_dir = __DIR__ . "/images/";
-var_dump($upload_dir);
+$unique_filename=date('YmsHid') .'_' . $filename;
 
 // 画像の拡張子関連
 $allow_ext = ['jpg', 'jpeg', 'png'];
@@ -40,15 +40,12 @@ if (!is_uploaded_file($tmp_path)) {
 
 // 画像アップロード処理
 if (count($_SESSION['err']) === 0) {
-
+    move_uploaded_file($tmp_path, $upload_dir.$unique_filename);
     $_SESSION['upload'] = "画像がアップロードされました。";
-} elseif (count($_SESSION['err']) > 0) {
-    // header('Location: /index.php');
-    // exit();
-}
-
-
-if (count($_SESSION['err']) > 0) {
+    header('Location: /index.php');
+    exit();
+} 
+elseif (count($_SESSION['err']) > 0) {
     header('Location: /index.php');
     exit();
 }
