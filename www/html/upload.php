@@ -3,11 +3,13 @@ session_start();
 
 // POSTで受け取ったデータ関連
 $file = $_FILES['image'];
-$filename = $file['name'];
+$filename = basename($file['name']);
 $tmp_path = $file['tmp_name'];
 $file_err = $file['error'];
 $filesize = $file['size'];
 $caption = filter_input(INPUT_POST, 'caption', FILTER_SANITIZE_SPECIAL_CHARS);
+$upload_dir = __DIR__ . "/images/";
+var_dump($upload_dir);
 
 // 画像の拡張子関連
 $allow_ext = ['jpg', 'jpeg', 'png'];
@@ -26,16 +28,27 @@ if ($filesize > 1048576 || $file_err === 2) {
     $_SESSION['err'] = "ファイルサイズは１MB以下にしてください。";
 }
 
-if(!in_array($file_ext,$allow_ext)){
-    $_SESSION['err']="画像ファイルをアップロードしてください。";
+// 拡張子
+if (!in_array($file_ext, $allow_ext)) {
+    $_SESSION['err'] = "jpg,jpg,pneいずれかの拡張子でアップロードしてください。";
 }
 
-if(!is_uploaded_file($tmp_path)){
-    $_SESSION['err']="ファイルが選択されません。";
-} else {
-    $_SESSION['upload']="画像がアップロードされました。";
+// テンポラリディレクトリにファイルがあるか。
+if (!is_uploaded_file($tmp_path)) {
+    $_SESSION['err'] = "ファイルが選択されません。";
 }
 
-// var_dump($_SESSION['err']);
-header('Location: /index.php');
-exit();
+// 画像アップロード処理
+if (count($_SESSION['err']) === 0) {
+
+    $_SESSION['upload'] = "画像がアップロードされました。";
+} elseif (count($_SESSION['err']) > 0) {
+    // header('Location: /index.php');
+    // exit();
+}
+
+
+if (count($_SESSION['err']) > 0) {
+    header('Location: /index.php');
+    exit();
+}

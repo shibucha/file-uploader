@@ -1,0 +1,23 @@
+.content-width {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1080px;
+}
+
+.container {
+    @extend .content-width;
+}
+
+.form {
+    &__input {
+        text-align: center;
+    }
+    & textarea {
+        width: 70%;
+        height: 60px;
+        margin: 20px 0;
+        padding: 5px;
+        border-radius: 2px;
+        outline: none;
+    }
+}

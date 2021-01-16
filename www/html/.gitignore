@@ -1,2 +1,5 @@
 .env
 /vendor
+/scss
+/.vscode
+/css/style.scss
