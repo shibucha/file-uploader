@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+if(isset($_SESSION['err'])){
+    $errs = [];
+    foreach($_SESSION['err'] as $err){
+        $errs = $err;
+        echo $err;
+        echo '<br>';
+    }
+    unset($_SESSION['err']);
+}
+if(isset($_SESSION['upload'])){
+   $upload_message=$_SESSION['upload'];
+   unset($_SESSION['upload']);
+   echo $upload_message;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -10,6 +29,7 @@
 
 <body>
     <h1>画像アップロード掲示板</h1>
+
     <div class="form">
         <form action="./upload.php" enctype="multipart/form-data" method="POST">
             <div class="image">
