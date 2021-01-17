@@ -12,6 +12,7 @@ $filesize = $file['size'];
 $caption = filter_input(INPUT_POST, 'caption', FILTER_SANITIZE_SPECIAL_CHARS);
 $upload_dir = __DIR__ . "/images/";
 $unique_filename=date('YmsHid') .'_' . $filename;
+$save_path=$upload_dir.$unique_filename;
 
 // 画像の拡張子関連
 $allow_ext = ['jpg', 'jpeg', 'png'];
@@ -44,8 +45,15 @@ if (!is_uploaded_file($tmp_path)) {
 
 // ********画像アップロード処理************//
 if (count($_SESSION['err']) === 0) {
-    move_uploaded_file($tmp_path, $upload_dir.$unique_filename);
+    move_uploaded_file($tmp_path, $save_path);
     $_SESSION['upload'] = "画像がアップロードされました。";
+
+    // データーベース接続
+    $dbh = dbc();
+
+    // 画像をデータベースへ保存
+    fileSave($unique_filename, $save_path, $caption, $dbh);
+
     header('Location: /index.php');
     exit();
 } 
