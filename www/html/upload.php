@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once('./dbc.php');
+
 // POSTで受け取ったデータ関連
 $file = $_FILES['image'];
 $filename = basename($file['name']);
@@ -38,7 +40,9 @@ if (!is_uploaded_file($tmp_path)) {
     $_SESSION['err'] = "ファイルが選択されません。";
 }
 
-// 画像アップロード処理
+
+
+// ********画像アップロード処理************//
 if (count($_SESSION['err']) === 0) {
     move_uploaded_file($tmp_path, $upload_dir.$unique_filename);
     $_SESSION['upload'] = "画像がアップロードされました。";
