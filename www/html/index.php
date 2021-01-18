@@ -4,7 +4,7 @@ session_start();
 
 if (isset($_SESSION['err'])) {
     // エラーメッセージが１つのみだった場合配列に変換してforeach内で処理を行うため。
-    $_SESSION['err']=[];
+    $_SESSION['err'] = [];
     $errs = [];
     foreach ($_SESSION['err'] as $err) {
         $errs = $err;
@@ -42,7 +42,9 @@ if (isset($_SESSION['upload'])) {
                 <div class="description">
                     <textarea placeholder="キャプション（140文字以下）" name="caption" id="" cols="30" rows="10"></textarea>
                 </div>
-                <button type="submit">アップロードする</button>
+                <div class="btn">
+                    <button class="form__btn" type="submit">アップロードする</button>
+                </div>
             </form>
         </div>
     </div>
