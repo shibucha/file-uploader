@@ -1,3 +1,10 @@
+img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 200px;
+  height: 200px;
+}
+
 .content-width, .container {
   width: 90%;
   margin: 0 auto;
@@ -29,6 +36,16 @@
 
 .image {
   text-align: left;
+}
+
+.image__display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.image__block {
+  max-width: 200px;
 }
 
 .description {

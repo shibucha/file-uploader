@@ -23,18 +23,18 @@ function dbc()
             ]
         );
 
-       return $dbh;
-
+        return $dbh;
     } catch (Exception $e) {
         $e->getMessage();
         exit();
     }
 }
 
-function fileSave($unique_filename, $save_path, $caption, $dbh){
+function fileSave($unique_filename, $save_path, $caption, $dbh)
+{
 
     try {
-        $sql="insert into images(file_name, file_path, caption) value(:filename, :file_path, :caption)";
+        $sql = "insert into images(file_name, file_path, caption) value(:filename, :file_path, :caption)";
         $prepare = $dbh->prepare($sql);
 
         $prepare->bindValue(':filename', $unique_filename);
@@ -42,9 +42,19 @@ function fileSave($unique_filename, $save_path, $caption, $dbh){
         $prepare->bindValue(':caption', $caption);
 
         $prepare->execute();
-
     } catch (Exception $e) {
         exit($e->getMessage());
     }
+}
 
+function getAllImages()
+{
+    try {
+        $sql = 'select * from images';
+
+        return  $dbh = dbc()->query($sql);
+        
+    } catch (Exception $e) {
+        exit($e->getMessage());
+    }
 }

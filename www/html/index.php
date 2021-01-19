@@ -1,6 +1,7 @@
 <?php
-
 session_start();
+
+require_once(__DIR__ . '/dbc.php');
 
 if (isset($_SESSION['err'])) {
     // エラーメッセージが１つのみだった場合配列に変換してforeach内で処理を行うため。
@@ -18,6 +19,10 @@ if (isset($_SESSION['upload'])) {
     unset($_SESSION['upload']);
     echo $upload_message;
 }
+
+$images = getAllImages();
+
+var_dump(__DIR__);
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +51,16 @@ if (isset($_SESSION['upload'])) {
                     <button class="form__btn" type="submit">アップロードする</button>
                 </div>
             </form>
+        </div>
+        <div class="image__wrapper">
+            <div class="image__display">
+                <?php foreach ($images as $image) : ?>
+                    <div class="image__block">
+                        <img src="<?php echo "/images/" . $image['file_name']; ?>" alt="">
+                        <?php echo $image['caption']; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </body>
