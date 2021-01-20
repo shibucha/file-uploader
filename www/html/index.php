@@ -22,7 +22,6 @@ if (isset($_SESSION['upload'])) {
 
 $images = getAllImages();
 
-var_dump(__DIR__);
 ?>
 
 <!DOCTYPE html>
@@ -57,8 +56,8 @@ var_dump(__DIR__);
                 <?php foreach ($images as $image) : ?>
                     <div class="image__block">
                         <img src="<?php echo "/images/" . $image['file_name']; ?>" alt="">
-                        <?php echo $image['caption']; ?>
-                    </div>
+                        <p><?php echo $image['caption']; ?></p>
+                    </div>                
                 <?php endforeach; ?>
             </div>
         </div>
